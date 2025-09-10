@@ -1,34 +1,68 @@
 #include <iostream>
-#include <filesystem>
 #include <string>
 #include <vector>
+#include <filesystem>
 
-using namespace std;
 namespace fs = std::filesystem;
 
+// Node representing files and dir
+struct Node {
+    std::string name;
+    bool isDirectory;
+    std::vector<Node> children;
 
-// Representing the file structure as an n-ary tree
-class Node {
-public:
-    std::string fileOrfolder;
-    std::vector<Node*> children; // children contained by this node
-    bool isDir; // should be true if the node is a directory
-
-    // Constructor
-    Node(std::string filename, bool isDirectory):
-    node(std::move(filename), checkIfDirectory(isDirectory) {}
-
-    // Add a child if the passed node is a directory
-    void addChild(Node* childNode) {
-        if isDirectory {
-        children.push_back(childNode);
-        }
-    }
-
-    // Destructor (denoted by tilde ~)
-    ~Node() {
-        for (Node* child : children) {
-            delete child;
-        }
-    }
+    Node(const std::string& n, bool isDir)
+        : name(n), isDirectory(isDir) {}
 };
+
+// Class to build a file tree
+class Tree {
+private:
+    Node root;
+
+    void buildTree(Node& node, const fs::path& path) {
+        if (!fs::is_directory(path)) return;
+
+        for (const auto& entry : fs::directory_iterator(path)) {
+            bool isDir = fs::is_directory(entry.path());
+            Node child(entry.path().filename().string(), isDir);
+            node.children.push_back(child);
+
+            if (isDir) {
+                buildTree(node.children.back(), entry.path());
+            }
+        }
+    }
+
+public:
+    Tree(const std::string& rootPath)
+        : root(rootPath, true) {
+        buildTree(root, fs::path(rootPath));
+    }
+
+    // TODO: impl print without arguments for main function
+    void printTree(const Node& node, int depth = 0) const {
+        std::string indent(depth * 2, ' ');
+        std::cout << indent
+                  << (node.isDirectory ? "[D] " : "[F] ")
+                  << node.name << "\n";
+        for (const auto& child : node.children) {
+            printTree(child, depth + 1);
+        }
+    }
+
+    void print() const {
+        printTree(root);
+    }
+
+    // TODO: deconstructor needed
+};
+
+// Print tree test
+int main() {
+    std::string path = "..";
+    Tree tree(path);
+
+    tree.print();
+    return 0;
+}
