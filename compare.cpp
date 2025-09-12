@@ -1,22 +1,48 @@
+#include <algorithm>
+#include <cstdio>
+#include <iostream>
 #include <vector>
 #include <string>
 
 namespace fs = std;
 
-// test struct
-struct TestNode {
-    std::string name;
-    bool isDirectory;
-    std::vector<Node> children;
-
-    Node(const std:string& n, bool isDir)
-         : name(n), isDirectory(isDir) {}
-};
-
 // levenshtein distance
-int lsDistance(string s1, string s2) {
+int lsDistance(std::string& s1, std::string& s2) {
+    // TODO: decide whether to check if strings are not equal in or outside this function
     int size1 = s1.size();
     int size2 = s2.size();
+    if (s1==s2) {
+    return 0;
+    }
 
-    // TODO: Tabelle aus Beispiel https://de.wikipedia.org/wiki/Levenshtein-Distanz implementieren
+    // From https://de.wikipedia.org/wiki/Levenshtein-Distanz
+    // replace, insert, deletion = 1
+    // init levenshtein distance matrix
+    std::vector<std::vector<int>> ldm(size1+1, std::vector<int>(size2+1));
+    for (int i = 0; i <= size1; i++) ldm[i][0] = i;
+    for (int j = 0; j <= size2; j++) ldm[0][j] = j;
+
+    for (int i = 1; i <= size1; i++) {
+        for (int j = 1; j <= size2; j++) {
+          if (s1[i-1] == s2[j-1]) {
+            ldm[i][j] = ldm[i-1][j-1]; // do nothing
+        } else {
+                // minimize cost out of del, insert and substitution
+                ldm[i][j] = std::min({ldm[i-1][j], ldm[i][j-1], ldm[i-1][j-1]}) + 1;
+            }
+        }
+    }
+    return ldm[size1][size2];
+}
+
+int main() {
+    std::string t1 = "arbor";
+    std::string t2 = "labor";
+    std::string t3 = "abby";
+    std::string t4 = "abby";
+
+    std::cout << "Levenshtein-Distance between " << t1 << t2 << lsDistance(t1,t2);
+    std::cout << "Levenshtein-Distance between " << t3 << t4 << lsDistance(t3,t4);
+
+    return 0;
 }
