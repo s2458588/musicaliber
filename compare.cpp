@@ -1,5 +1,5 @@
+#include "compare.h"
 #include <algorithm>
-#include <cstdio>
 #include <iostream>
 #include <vector>
 #include <string>

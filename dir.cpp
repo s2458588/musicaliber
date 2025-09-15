@@ -1,3 +1,4 @@
+#include "dir.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -40,7 +41,7 @@ public:
         buildTree(root, fs::path(rootPath));
     }
 
-    // TODO: impl print without arguments for main function
+    // TODO: provide this as functionality for preview mode
     void printTree(const Node& node, int depth = 0) const {
         std::string indent(depth * 2, ' ');
         std::cout << indent
@@ -63,6 +64,6 @@ int main() {
     std::string path = "..";
     Tree tree(path);
 
-    tree.print();
+    //tree.print();
     return 0;
 }
