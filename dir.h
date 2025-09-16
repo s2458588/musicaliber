@@ -1,18 +1,27 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include <filesystem>
+
+struct Node {
+    std::string name;
+    bool isDirectory;
+    std::vector<Node> children;
+
+    Node(const std::string& n, bool isDir)
+        : name(n), isDirectory(isDir) {}
+};
 
 class Tree {
 public:
-    // explicit is preventing the compiler from implicitly converting the function parameter via the constructor
-    explicit Tree(const std::string& path);
+    Tree(const std::string& rootPath);
 
     // TODO: remove when finished
-    void printTree() const;
-
+    void printTree(Node& node, int depth = 0) const;
+    void print() const;
 private:
-    void buildTree(const std::string& path, int depth);
-
-    void indent(int depth) const;
-    std::string rootDir;
+    Node root;
+    void buildTree(Node& node, const std::filesystem::path& path);
+    void printTree(const Node& node, int depth=0) const;
 };

@@ -12,3 +12,5 @@ compare.cpp
 )
 
 TARGET_LINK_LIBRARIES(run musicaliber)
+
+## TODO: Fix make "cannot find -musicaliber

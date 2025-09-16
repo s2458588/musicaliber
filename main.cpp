@@ -12,10 +12,9 @@ int main (void){
     return 0;
 
     // test tree builder
-    Tree tree(".");
-    tree.printTree();
+    std::string path = ".";
+    Tree tree(path);
+    tree.print();
 
     return 0;
 }
-
-// TODO: fix the double class definition in dir.h/cpp

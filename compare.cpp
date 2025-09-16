@@ -34,15 +34,3 @@ int lsDistance(std::string& s1, std::string& s2) {
     }
     return ldm[size1][size2];
 }
-
-int main() {
-    std::string t1 = "arbor";
-    std::string t2 = "labor";
-    std::string t3 = "abby";
-    std::string t4 = "abby";
-
-    std::cout << "Levenshtein-Distance between " << t1 << t2 << lsDistance(t1,t2);
-    std::cout << "Levenshtein-Distance between " << t3 << t4 << lsDistance(t3,t4);
-
-    return 0;
-}
