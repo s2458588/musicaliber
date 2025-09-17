@@ -7,9 +7,7 @@ int main (void){
     // test lsd
     std::string s1 = "Soos";
     std::string s2 = "Sees";
-    int lsdist = lsDistance(s1, s2);
-    std::cout << "Soos -> Sees: " << lsdist <<"\n";
-    return 0;
+    std::cout << "Soos -> Sees: " << lsDistance(s1, s2) << std::endl;
 
     // test tree builder
     std::string path = ".";

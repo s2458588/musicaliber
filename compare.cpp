@@ -7,7 +7,7 @@
 namespace fs = std;
 
 // levenshtein distance
-int lsDistance(std::string& s1, std::string& s2) {
+int lsDistance(const std::string& s1, const std::string& s2) {
     // TODO: decide whether to check if strings are not equal in or outside this function
     int size1 = s1.size();
     int size2 = s2.size();
