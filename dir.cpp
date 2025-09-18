@@ -39,3 +39,10 @@ void Tree::printTree(const Node& node, int depth) const {
 void Tree::print() const {
     printTree(root);
 }
+
+// TODO: make tree class return a structure that contains only until depth 2 (root > artist > album > song.file)
+void Tree::itertree(const Node& node, int depth=2) const {
+    for (const auto& child : node.children) {
+        // do something
+    }
+}
