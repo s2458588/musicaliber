@@ -1,6 +1,8 @@
 #include "dir.h"
 #include <iostream>
 #include <filesystem>
+#include <regex>
+#include <string>
 
 namespace fs = std::filesystem;
 
@@ -43,6 +45,9 @@ void Tree::print() const {
 // TODO: make tree class return a structure that contains only until depth 2 (root > artist > album > song.file)
 void Tree::itertree(const Node& node, int depth=2) const {
     for (const auto& child : node.children) {
-        // do something
+        // use regex for album names with prefixed dates
+        std::string newname = std::regex_replace(child.name, "\\d+", "");
+        // check RAM occupied by tree
     }
+        std::cout << sizeof(node) << "bytes";
 }
