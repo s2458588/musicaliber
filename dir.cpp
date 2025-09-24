@@ -43,11 +43,12 @@ void Tree::print() const {
 }
 
 // TODO: make tree class return a structure that contains only until depth 2 (root > artist > album > song.file)
-void Tree::itertree(const Node& node, int depth=2) const {
+void Tree::iterTree(const Node& node, int depth=2) const {
     for (const auto& child : node.children) {
-        // use regex for album names with prefixed dates
-        std::string newname = std::regex_replace(child.name, "\\d+", "");
-        // check RAM occupied by tree
+        // use regex for album names with prefixed dates that might be enclosed by parenthesis.
+        // still needs trimming whitespaces
+        node.name = std::regex_replace(node.name, "^\(?\d{4}\)?", ""); iterTree(const Node &node);
     }
+        // check RAM occupied by tree
         std::cout << sizeof(node) << "bytes";
 }

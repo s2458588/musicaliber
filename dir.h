@@ -24,4 +24,5 @@ private:
     Node root;
     void buildTree(Node& node, const std::filesystem::path& path);
     void printTree(const Node& node, int depth=0) const;
+    void iterTree(const Node& node, int depth=2) const;
 };
