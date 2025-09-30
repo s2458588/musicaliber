@@ -49,6 +49,7 @@ void Tree::iterTree(const Node& node, int depth) const {
         // still needs trimming whitespaces
         if child.isDirectory {
             child.processedName = std::regex_replace(node.name, "^\\(?\\d{4}\\)?", "");
+            child.processedName = std::regex_replace(child.processedName, "^\\s+|\\s+$", "");
         }
         iterTree(const Node &node, depth);
     }
