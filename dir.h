@@ -12,7 +12,6 @@ struct Node {
     Node(const std::string& n, bool isDir)
         : name(n), isDirectory(isDir) {}
 
-    // TODO: get processed pseudo-name for levenshtein distance comparison
     std::string processedName;
 };
 
