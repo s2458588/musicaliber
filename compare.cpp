@@ -1,6 +1,5 @@
 #include "compare.h"
 #include <algorithm>
-#include <iostream>
 #include <vector>
 #include <string>
 
